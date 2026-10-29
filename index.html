@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BioGlow Tiles™ — Living Light for Homes, Cities &amp; Nature</title>
+<meta name="description" content="An explorable guide to BioGlow Tiles: a bioluminescent lighting concept with a glow lab, an impact estimator and an honest evidence ledger.">
+<style>
+/* 1 THEME: change these colours to re-skin the whole page */
+:root{color-scheme:dark;--bg:#031014;--ink:#dff3ee;--mute:#9fbdb8;--g:#8dffb5;--b:#5fd0ff;--a:#ffc56b;--glass:rgba(10,42,48,.58);--line:rgba(141,255,181,.2)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:radial-gradient(1100px 650px at 78% -8%,#0a3a3c,transparent 62%),var(--bg);color:var(--ink);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.2;font-weight:600}
+a{color:var(--b)}
+:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#000;padding:8px 12px;z-index:99}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--g),var(--b));z-index:60}
+/* 2 AERO GLASS: frosted, translucent panels. Add class "glass" to any block */
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border:1px solid var(--line);border-radius:22px;box-shadow:0 26px 50px -26px #000,inset 0 1px 0 rgba(255,255,255,.1)}
+.hero{min-height:82vh;display:grid;place-items:center;text-align:center;padding:56px 18px 30px}
+.hero .glass{padding:34px 26px;max-width:800px}
+.hero h1{font-size:clamp(2.5rem,7vw,4.5rem);margin:.15em 0;text-shadow:0 0 18px rgba(141,255,181,.6),0 0 70px rgba(95,208,255,.4)}
+.lead{font-size:1.22rem;color:var(--g)}
+/* the hero tile: a glass panel with a breathing glow (pure CSS) */
+.tile{width:96px;height:96px;margin:0 auto 10px;border-radius:20px;border:1px solid rgba(223,243,238,.4);background:radial-gradient(circle at 50% 55%,#c9ffe0,#3fd58a 45%,#0b4a3a 100%);box-shadow:0 0 40px 8px rgba(141,255,181,.45),0 0 120px 30px rgba(95,208,255,.25);animation:br 5s ease-in-out infinite}
+@keyframes br{50%{box-shadow:0 0 22px 4px rgba(141,255,181,.28),0 0 70px 14px rgba(95,208,255,.14)}}
+.btn,button{font:inherit;font-size:.95rem;color:var(--ink);background:rgba(141,255,181,.12);border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer;text-decoration:none;display:inline-block;margin:3px}
+.btn:hover,button:hover{background:rgba(141,255,181,.24);box-shadow:0 0 18px rgba(141,255,181,.3)}
+.wrap{display:grid;grid-template-columns:210px minmax(0,1fr);gap:30px;max-width:1160px;margin:0 auto;padding:0 18px}
+/* 3 TOC: sticky contents list with scroll-spy (the .on class is set by the script) */
+#toc{position:sticky;top:18px;align-self:start;padding:14px;max-height:calc(100vh - 36px);overflow:auto}
+#toc b{display:block;margin-bottom:6px}
+#toc a{display:block;padding:5px 9px;border-radius:9px;color:var(--mute);text-decoration:none;font-size:.92rem}
+#toc a.on,#toc a:hover{background:rgba(141,255,181,.15);color:var(--ink)}
+@media(max-width:900px){.wrap{display:block}#toc{position:sticky;top:0;z-index:40;display:flex;gap:4px;overflow-x:auto;border-radius:0 0 18px 18px;margin:0 -18px}#toc b{display:none}#toc a{white-space:nowrap}}
+section{padding:46px 0 30px;border-top:1px solid var(--line)}
+h2{font-size:1.8rem;margin:0 0 14px}
+h3{font-size:1.15rem;margin:.2em 0 .3em}
+.small{font-size:.88rem;color:var(--mute)}
+.chip{font-size:.78rem;padding:1px 10px;border-radius:99px;border:1px solid;white-space:nowrap;display:inline-block}
+.t{color:var(--a)}.v{color:#ff9fa0}.k{color:var(--g)}.n{color:var(--b)}
+dl.stats{display:flex;flex-wrap:wrap;gap:10px 38px;margin:18px 0}
+dl.stats dd{margin:0;font:600 2rem/1.1 Georgia,serif;color:var(--g)}dl.stats dt{font-size:.85rem;color:var(--mute);order:2}
+dl.stats div{display:flex;flex-direction:column}
+ul.feat{list-style:none;padding:0;margin:14px 0;display:grid;gap:12px}
+ul.feat li{padding:4px 0 4px 16px;border-left:3px solid var(--c,var(--g))}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:14px 0}
+.pad{padding:18px}
+svg{max-width:100%;height:auto}svg text{fill:#dff3ee;font:12px system-ui}
+.dot{animation:fl 5s linear infinite;transform-box:fill-box}.o{animation-name:fu}
+@keyframes fl{0%{transform:translateY(-16px);opacity:0}25%{opacity:1}100%{transform:translateY(44px);opacity:0}}
+@keyframes fu{0%{transform:translateY(30px);opacity:0}25%{opacity:1}100%{transform:translateY(-34px);opacity:0}}
+#lab{width:100%;aspect-ratio:960/420;display:block;border-radius:22px;background:#020507;border:1px solid var(--line)}
+.ctl{display:flex;flex-wrap:wrap;gap:16px 22px;align-items:end;margin:14px 0}
+label{display:grid;gap:3px;font-size:.9rem;color:var(--mute)}
+select,input[type=range]{accent-color:var(--g)}
+select{font:inherit;background:#06242a;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:6px}
+.res{display:flex;flex-wrap:wrap;gap:12px 34px;margin-top:14px}
+.res div{max-width:250px}.res b{display:block;font:600 1.5rem Georgia,serif;color:var(--g)}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:680px;font-size:.95rem}
+td,th{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+code{word-break:break-all;color:var(--a)}
+.rd label{display:flex;gap:8px;align-items:start;color:var(--ink);font-size:1rem}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 18px;opacity:0;transition:opacity .3s;z-index:70;pointer-events:none}
+footer{padding:36px 18px 50px;text-align:center;color:var(--mute);font-size:.92rem}
+footer .glass{max-width:820px;margin:0 auto 18px;padding:18px 22px;text-align:left}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<canvas id="fx" aria-hidden="true"></canvas><div id="bar"></div>
+<noscript><p class="small" style="padding:8px 18px">All text works without JavaScript. The glow lab, estimator and copy buttons need it.</p></noscript>
+
+<header class="hero"><div class="glass">
+ <div class="tile" aria-hidden="true"></div>
+ <h1>BioGlow Tiles™</h1>
+ <p class="lead">Self-Sustaining Bioluminescent Lighting for Homes, Cities, and Nature Spaces</p>
+ <p>A soft glow grown by living organisms: lovely at night, gentle on wildlife, and designed to give back to the planet. This page turns the project README into a guide you can explore.</p>
+ <p><a class="btn" href="#glowlab">Try the glow lab</a><a class="btn" href="#evidence">Read the evidence ledger</a><button id="pause" aria-pressed="false">Pause glow</button></p>
+ <p class="small">© 2025 Ricky Foster. All Rights Reserved. Patent Pending. Trademark Registered. Distributed under the <b>LumaLife Guardian Trust License (LGTL-1.0)</b>: open for personal and ecological use, licensed for commercial sales.</p>
+</div></header>
+
+<div class="wrap">
+<nav id="toc" class="glass" aria-label="Table of contents"><b>Contents</b>
+<a href="#overview">Overview</a><a href="#features">Core Features</a><a href="#how">How It Works</a><a href="#glowlab">Glow Lab</a><a href="#making">Manufacturing &amp; Scalability</a><a href="#uses">Use Cases</a><a href="#impact">Environmental Impact</a><a href="#evidence">Evidence Ledger</a><a href="#stewardship">Safety &amp; Stewardship</a><a href="#legal">Legal Protections</a><a href="#market">Market Strategy</a><a href="#roadmap">Roadmap</a><a href="#contact">Contact &amp; Contributions</a><a href="#tools">Tools &amp; Privacy</a></nav>
+
+<main id="main" tabindex="-1">
+<div class="glass pad"><b>How to use this page.</b> Read top to bottom or jump with the contents. Each claim has a plain label. <span class="chip t">Design target</span> is what the team is aiming for. <span class="chip v">Needs proof</span> must be measured before anyone relies on it. <span class="chip k">Plausible</span> fits known science. <span class="chip n">Clarified</span> means we reworded the README for accuracy. Everything interactive runs only in your browser.</div>
+
+<section id="overview"><h2>Overview</h2>
+<p><b>BioGlow Tiles™</b> are <b>living, self-powered lighting panels</b>. They use <b>engineered bioluminescent organisms</b> (the goal is safe, non-toxic strains of algae and fungi) to give a <b>soft, ambient glow</b> without mains electricity or batteries.</p>
+<p>They are designed for <b>everyday consumers</b> as a sustainable, beautiful, cost-saving alternative to outdoor and indoor lighting. They also aim to absorb <b>CO₂</b> and add to <b>urban greening</b>.</p>
+<dl class="stats"><div><dd>20–60 lm</dd><dt>light per tile <span class="chip t">Design target</span></dt></div><div><dd>6–12 months</dd><dt>between refill kits <span class="chip t">Design target</span></dt></div><div><dd>0.5 kg</dd><dt>CO₂ per tile per year, at most <span class="chip v">Needs proof</span></dt></div><div><dd>$20–$50</dd><dt>planned retail price <span class="chip t">Projection</span></dt></div></dl>
+</section>
+
+<section id="features"><h2>Core Features</h2>
+<ul class="feat">
+<li><h3>Zero power required <span class="chip n">Clarified</span></h3>No batteries and no wiring. Photosynthetic strains take their energy from ordinary daylight, as plants do.</li>
+<li style="--c:var(--b)"><h3>Natural bioluminescence <span class="chip k">Plausible</span></h3>A soft glow that is gentler on wildlife than many LED lights.</li>
+<li style="--c:var(--a)"><h3>Carbon-negative goal <span class="chip v">Needs proof</span></h3>Each tile aims to capture up to <b>0.5 kg of CO₂ a year</b> during its life. See the evidence ledger for what must be shown first.</li>
+<li><h3>Long-lasting glow <span class="chip t">Design target</span></h3>Runs for <b>6–12 months</b> before it needs a bio-refill kit.</li>
+<li style="--c:var(--b)"><h3>Customizable designs <span class="chip t">Planned</span></h3>Multiple colors, patterns and brightness levels. Colour packs are on the 2026 roadmap.</li>
+</ul></section>
+
+<section id="how"><h2>How It Works</h2>
+<div class="cols"><div>
+<ol>
+<li><b>Bioluminescent microorganisms.</b> Non-toxic algae and fungi live in a nutrient gel.</li>
+<li><b>Transparent bioreactor panel.</b> It protects and sustains the organisms, with air vents for gas exchange.</li>
+<li><b>Self-sustaining cycle.</b> Organisms use <b>captured CO₂ and trace nutrients</b>, topped up by refill kits.</li>
+<li><b>Natural light output.</b> A design target of <b>20–60 lumens per tile</b> for paths, patios or mood lighting.</li></ol>
+<p class="small"><b>Use it:</b> picture the tile as a sealed mini-pond. Air moves through the vents, the gel feeds the glow, and you swap the refill kit when it dims.</p></div>
+<svg viewBox="0 0 320 250" role="img" aria-label="Cutaway of a tile: transparent panel on top, glowing gel with organisms inside, air vents on the sides with gas moving through, and a bioplastic casing around it.">
+<defs><radialGradient id="gl"><stop offset="0" stop-color="#8dffb5" stop-opacity=".85"/><stop offset="1" stop-color="#8dffb5" stop-opacity="0"/></radialGradient></defs>
+<rect x="30" y="70" width="260" height="140" rx="18" fill="#0a1d1c" stroke="#3b7a66" stroke-width="7"/>
+<rect x="46" y="86" width="228" height="108" rx="10" fill="#0e2f29"/>
+<ellipse cx="160" cy="142" rx="112" ry="50" fill="url(#gl)"/>
+<g fill="#d8ffe9"><circle cx="100" cy="130" r="3"/><circle cx="140" cy="158" r="2.5"/><circle cx="178" cy="124" r="3"/><circle cx="214" cy="150" r="2.5"/><circle cx="158" cy="112" r="2"/><circle cx="120" cy="170" r="2"/></g>
+<rect x="46" y="74" width="228" height="8" rx="4" fill="#bfeaff" opacity=".4"/>
+<rect x="22" y="118" width="16" height="7" rx="3" fill="#5fd0ff"/><rect x="282" y="150" width="16" height="7" rx="3" fill="#5fd0ff"/>
+<g fill="#ffc56b"><circle class="dot" cx="14" cy="100" r="3"/><circle class="dot" cx="10" cy="110" r="3" style="animation-delay:-2s"/></g>
+<g fill="#8dffb5"><circle class="dot o" cx="304" cy="190" r="3"/><circle class="dot o" cx="310" cy="176" r="3" style="animation-delay:-2.5s"/></g>
+<text x="160" y="24" text-anchor="middle">Transparent panel</text><path d="M160 30v40" stroke="#9fbdb8"/>
+<text x="160" y="236" text-anchor="middle">Gel and organisms inside a bioplastic casing</text>
+<text x="4" y="86">CO₂ in</text><text x="262" y="226">O₂ out</text>
+</svg></div></section>
+
+<section id="glowlab"><h2>Glow Lab</h2>
+<p>See how tiles could light a garden path. Pick a colour, change the brightness and the number of tiles, then switch on <b>Reality mode</b> to see how faint real bioluminescence is today.</p>
+<canvas id="lab" width="960" height="420" role="img" aria-label="Simulated night garden path lit by glowing tiles with fern silhouettes"></canvas>
+<div class="ctl">
+<label>Colour<select id="lc"><option value="141,255,181">Fungal green</option><option value="95,208,255">Algae blue</option><option value="255,197,107">Warm amber (concept)</option></select></label>
+<label>Brightness <output id="o-lb"></output><input id="lb" type="range" min="5" max="100" value="60"></label>
+<label>Tiles per side <output id="o-ln"></output><input id="ln" type="range" min="2" max="8" value="5"></label>
+<label style="display:flex;gap:8px;align-items:center"><input id="lr" type="checkbox"> Reality mode</label></div>
+<p class="small">Illustrative simulation, not a measurement. Real lab glows are dim and show up mainly once your eyes adjust to darkness. <b>Use it:</b> compare the two modes before deciding where tiles would help and where ordinary light is still needed.</p></section>
+
+<section id="making"><h2>Manufacturing &amp; Scalability</h2>
+<div class="cols"><div><h3>Materials</h3><ul><li>Recycled bioplastics for the casing</li><li>Nutrient gel (renewable and safe)</li><li>Engineered, long-lived algae and fungal strains</li></ul></div>
+<div><h3>Production</h3><ul><li>Injection-molded and filled in local or microfactories</li><li>Estimated <b>$5–$10</b> production cost per unit</li><li>Retail-ready at <b>$20–$50</b>, with bulk décor packs</li></ul></div>
+<div><h3>Scalability</h3><ul><li><b>Franchise-ready DAO model</b> so local entrepreneurs can make and sell tiles</li><li>Shelf-stable before activation and easy to ship globally</li></ul></div></div>
+<p class="small">A DAO is a community-run organisation whose rules are public. Its governance design is a <span class="chip t">future extension</span>.</p></section>
+
+<section id="uses"><h2>Use Cases</h2>
+<ul class="feat"><li><h3>Home &amp; garden lighting</h3>Pathways, patios, fences or interior mood lighting.</li>
+<li style="--c:var(--b)"><h3>Off-grid living</h3>Cabins, RVs and campsites without electricity.</li>
+<li style="--c:var(--a)"><h3>Urban infrastructure</h3>Rooftops, parks, or streetlight alternatives.</li>
+<li><h3>Event &amp; festival decor</h3>Ambient, eco-friendly lighting for gatherings.</li></ul>
+<p class="small"><b>Safety note:</b> keep conventional lighting wherever safety depends on seeing clearly, such as stairs, roads and exits, until measured brightness is published.</p></section>
+
+<section id="impact"><h2>Environmental Impact</h2>
+<ul><li><b>Zero energy use.</b> The README says each tile replaces about 20 kWh a year of electric lighting.</li><li><b>CO₂ absorption.</b> Organisms capture carbon during their life.</li><li><b>Wildlife-friendly.</b> Minimal light pollution supports nocturnal species.</li><li><b>Fully compostable.</b> End-of-life tiles can be composted or recycled, once safety is verified.</li></ul>
+<h3>Impact estimator</h3>
+<p>Adjust the sliders to compare the README figures with a calculation from the README's own brightness. <b>Use it:</b> plan a pilot and see what you would need to measure.</p>
+<div class="glass pad"><div class="ctl">
+<label>Tiles <output id="o-n"></output><input id="n" type="range" min="1" max="1000" value="10"></label>
+<label>Brightness per tile, lm <output id="o-lm"></output><input id="lm" type="range" min="1" max="60" value="40"></label>
+<label>Hours lit per night <output id="o-h"></output><input id="h" type="range" min="1" max="14" value="10"></label>
+<label>Grid, g CO₂ per kWh <output id="o-g"></output><input id="g" type="range" min="0" max="900" step="10" value="400"></label></div>
+<div class="res" aria-live="polite" data-nofp>
+<div><b><span id="r1"></span> kWh</b>Electricity an LED of that brightness would use per year (calculated, assumes 100 lm per watt)</div>
+<div><b><span id="r2"></span> kWh</b>Electricity replaced per year, as stated in the README <span class="chip v">Needs proof</span></div>
+<div><b><span id="r3"></span> kg</b>CO₂ avoided through that electricity (calculated)</div>
+<div><b><span id="r4"></span> kg</b>CO₂ captured per year, README upper bound <span class="chip v">Needs proof</span></div></div></div></section>
+
+<section id="evidence"><h2>Evidence Ledger</h2>
+<p>Strong projects show their evidence. This ledger lists each README claim, how mature it is, and what would prove it. <b>Use it:</b> share it with scientists, funders and regulators, and update the labels as measurements arrive.</p>
+<div class="tw"><table><thead><tr><th>Claim</th><th>README says</th><th>Status</th><th>Plain-language note</th></tr></thead><tbody>
+<tr><td>Zero power</td><td>No batteries, no wiring, no solar panels</td><td><span class="chip n">Clarified</span></td><td>No mains power or batteries needed. Photosynthetic strains still run on daylight, like plants. Fungal strains need a sugar-type food in the gel.</td></tr>
+<tr><td>Brightness</td><td>20–60 lumens per tile</td><td><span class="chip v">Needs proof</span></td><td>A candle gives about 12 lumens, so this is roughly two to five candles. Published bioluminescence demos are far dimmer. Measure with a calibrated light meter.</td></tr>
+<tr><td>Energy replaced</td><td>About 20 kWh per tile per year</td><td><span class="chip v">Needs proof</span></td><td>At 20–60 lm an efficient LED uses 0.2–0.6 W, about 0.7–2.2 kWh a year at 10 hours nightly. 20 kWh matches a light near 550 lm. The estimator shows both.</td></tr>
+<tr><td>Carbon capture</td><td>Up to 0.5 kg CO₂ a year, carbon-negative</td><td><span class="chip v">Needs proof</span></td><td>Only photosynthetic organisms take in CO₂; fungi do not. Composting returns most captured carbon to the air. A life-cycle assessment (casing, factory, shipping, refills, end of life) comes first.</td></tr>
+<tr><td>Glow lifetime</td><td>6–12 months before a refill kit</td><td><span class="chip t">Design target</span></td><td>Needs long trials that record brightness over time.</td></tr>
+<tr><td>Wildlife-friendly</td><td>Minimal light pollution</td><td><span class="chip k">Plausible</span></td><td>Dim, narrow-colour light is usually gentler than bright white LEDs, but species differ. Field-test with ecologists.</td></tr>
+<tr><td>Safe and compostable</td><td>Non-toxic strains, fully compostable</td><td><span class="chip v">Needs proof</span></td><td>Needs independent biosafety review and a recognised compost certification. Until then, treat each tile as a sealed unit to return, not to bury or compost.</td></tr>
+<tr><td>Money</td><td>$5–$10 cost, $20–$50 retail, 50–70% margin</td><td><span class="chip t">Projection</span></td><td>Depends on volumes, yields and retailer share. Check against pilot-run quotes.</td></tr>
+<tr><td>Legal status</td><td>Patent pending, trademark registered</td><td><span class="chip n">As declared</span></td><td>Stated by the project lead. This page does not verify filings. Adding application or registration numbers is a <span class="chip t">future extension</span>.</td></tr>
+</tbody></table></div></section>
+
+<section id="stewardship"><h2>Safety &amp; Stewardship</h2>
+<ul class="feat">
+<li><h3>Containment first</h3>Sealed, tamper-evident units with clear labels: what is inside, and what to do if one cracks. No release into soil or water.</li>
+<li style="--c:var(--b)"><h3>Independent review before sale</h3>Engineered organisms are regulated, for example by the US EPA under TSCA and by EU authorities. Plan biosafety review early. This is not legal advice.</li>
+<li style="--c:var(--a)"><h3>Open measurements</h3>Publish brightness, glow over time, CO₂ and life-cycle data so anyone can check the numbers.</li>
+<li><h3>Take-back at end of life</h3>Return and safe-inactivation instructions before any composting claim. A take-back map is a <span class="chip t">future extension</span>.</li>
+<li style="--c:var(--b)"><h3>Invitations, not pressure</h3>The README calls the glow viral by design. Keep sharing and buying opt-in, with no countdown timers, guilt or hidden defaults.</li></ul></section>
+
+<section id="legal"><h2>Legal Protections</h2>
+<ul><li><b>Trademark:</b> <i>BioGlow Tiles™</i> is a registered trademark under the <b>Guardian Trust IP Framework</b>.</li>
+<li><b>Patent pending:</b> covers <b>bioluminescent organism systems, modular panel design, and refillable nutrient bioreactor tech</b>.</li>
+<li><b>Copyright (© 2025 Ricky Foster):</b> all branding, designs and technical blueprints are protected.</li>
+<li>Licensed under <b>LGTL-1.0</b>, which permits <b>personal use and open ecological deployment</b> and requires <b>licensed commercial production</b>, with a share of profits funding <b>planetary restoration DAOs</b>.</li></ul>
+<p class="small">These statements come from the project lead. Read the full license text in the project repository before relying on them.</p></section>
+
+<section id="market"><h2>Market Strategy</h2>
+<ul><li>Focus on <b>eco-conscious homeowners, urban consumers and event markets</b>.</li><li>Sell through <b>direct-to-consumer kits, online eco-stores and retail garden and home chains</b>.</li><li>The unique glow invites <b>user-generated content</b>, shared by choice.</li><li>A <b>franchise DAO model</b> allows rapid local scaling.</li></ul>
+<p>Projected <b>profit margin</b>: 50–70% (low materials cost, high perceived value) <span class="chip t">Projection</span></p></section>
+
+<section id="roadmap"><h2>Roadmap</h2>
+<p class="small">Dates are from the original README plan. Tick items to track your own progress. Ticks stay in this browser only.</p>
+<div class="rd"><h3>Phase 1 (2025 Q3)</h3>
+<label><input type="checkbox" id="c1">Finalize prototypes and optimize bioluminescent strains</label>
+<label><input type="checkbox" id="c2">Launch crowdfunding via Kickstarter and eco-tech platforms</label>
+<h3>Phase 2 (2025 Q4)</h3>
+<label><input type="checkbox" id="c3">Roll out microfactory franchise kits to local entrepreneurs</label>
+<label><input type="checkbox" id="c4">Secure distribution with home and garden retail partners</label>
+<h3>Phase 3 (2026)</h3>
+<label><input type="checkbox" id="c5">Release color-customization packs and refill kits</label>
+<label><input type="checkbox" id="c6">Expand into architectural panels and municipal lighting markets</label></div></section>
+
+<section id="contact"><h2>Contact &amp; Contributions</h2>
+<p><b>Project lead:</b> Ricky Foster (Symbiote001)<br><b>GitHub:</b> link coming soon <span class="chip t">future extension</span></p>
+<p class="small">No email address is published on this page. A public contact link will be added once the project’s GitHub address is confirmed.</p>
+<h3>Support the project (optional)</h3>
+<p class="small">Public receiving addresses only. Confirm an address with the project lead before sending. Never share a seed phrase or private key with anyone, including this project.</p>
+<p><b>ETH</b> <code id="eth">0xCeA929dee554652261fd6261F3034A2D71C7BDDb</code> <button data-copy="#eth">Copy ETH</button></p>
+<p><b>SOL</b> <code id="sol">HfGCVthQ4Wp4CAYd4v7gJX53h6X3mdreUocjrhByPXQx</code> <button data-copy="#sol">Copy SOL</button></p>
+<p><b>BTC</b> <code id="btc">bc1q6fyvqxm7jryy5edckk9nuu6mgyjlz4nnp8nksr</code> <button data-copy="#btc">Copy BTC</button></p>
+<p><i>“The truth is not what I say. It’s what I’ve already done.”</i> Ricky Foster</p></section>
+
+<section id="tools"><h2>Tools &amp; Privacy</h2>
+<h3>Page fingerprint</h3>
+<p>A fingerprint (SHA-256) is a short code that changes if even one letter of the page text changes. Record it when you publish, and anyone can recompute it later to check that their copy is unaltered. It is an integrity check, not a legal notarization. The repository's <code>use-global-notarize.yml</code> records a notarization timestamp of 23 July 2025, 14:39:06 UTC.</p>
+<p><button id="fp">Compute fingerprint</button></p><p><code id="fpo" data-nofp></code></p>
+<h3>What this page saves</h3>
+<p>Only your slider choices and roadmap ticks, in this browser. Nothing is sent anywhere. <button id="reset">Reset local data</button></p>
+<h3>Extend this page with AI</h3>
+<p class="small">Copy a prompt into any AI assistant. Each keeps the safety rules intact.</p>
+<p id="pr1">Add Spanish and French versions of this BioGlow Tiles page. Keep every “Needs proof” label and the Zero Harm &amp; Anti-Coercion note unchanged. Add no tracking, emails or external requests.</p><p><button data-copy="#pr1">Copy prompt 1</button></p>
+<p id="pr2">Add a life-cycle assessment worksheet to the Environmental Impact section with inputs for casing, factory energy, shipping and end of life, and outputs in kg CO₂e. Label every assumption and source, and make it work offline.</p><p><button data-copy="#pr2">Copy prompt 2</button></p>
+<p id="pr3">Add a printable one-page pilot garden safety sheet for community trials: containment checks, labelling, take-back steps and who to call.</p><p><button data-copy="#pr3">Copy prompt 3</button></p></section>
+</main></div>
+
+<footer>
+<div class="glass"><b>Zero Harm &amp; Anti-Coercion.</b> This page has no tracking, analytics, cookies or network calls, and publishes no email address, keys or tokens. Choices you make are saved only in your browser and can be erased with “Reset local data”. Nothing here may be used to pressure, deceive, surveil, harass or harm anyone, or to release living organisms into the wild. When in doubt, choose safety, clarity and care.</div>
+© 2025 Ricky Foster. All Rights Reserved. Licensed under LGTL-1.0.
+</footer>
+<div id="toast" class="glass" role="status" aria-live="polite" data-nofp></div>
+
+<script>
+(()=>{'use strict';
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+/* LOCAL SAVES: the only thing this page stores, in this browser only. "Reset local data" erases it. */
+const P='bgt:',store={get(k,d){try{const v=localStorage.getItem(P+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(P+k,JSON.stringify(v))}catch(e){}},clear(){try{Object.keys(localStorage).filter(k=>k.startsWith(P)).forEach(k=>localStorage.removeItem(k))}catch(e){}}};
+const te=$('#toast');let tt;
+function toast(m){te.textContent=m;te.style.opacity=1;clearTimeout(tt);tt=setTimeout(()=>te.style.opacity=0,2400)}
+/* COPY BUTTONS: give any button data-copy="#id" to copy that element's text */
+async function copy(x){try{await navigator.clipboard.writeText(x);toast('Copied')}catch(e){const a=document.createElement('textarea');a.value=x;document.body.append(a);a.select();let ok=false;try{ok=document.execCommand('copy')}catch(e2){}a.remove();toast(ok?'Copied':'Copy is blocked here. Select the text and copy it by hand.')}}
+$$('[data-copy]').forEach(b=>b.onclick=()=>copy($(b.dataset.copy).textContent.trim()));
+
+/* GLOW ENGINE: soft light sprites drawn additively give a photographic bloom */
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let paused=reduce,dirty=true,labOn=false;
+function sprite(rgb){const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d'),g=x.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,`rgba(${rgb},1)`);g.addColorStop(.25,`rgba(${rgb},.4)`);g.addColorStop(1,`rgba(${rgb},0)`);x.fillStyle=g;x.fillRect(0,0,64,64);return c}
+const spr=['141,255,181','95,208,255','255,197,107'].map(sprite);
+const fx=$('#fx'),fc=fx.getContext('2d'),low=(navigator.hardwareConcurrency||4)<4;
+let W=0,H=0,motes=[];
+function fit(){fx.width=W=innerWidth;fx.height=H=innerHeight;dirty=true}
+fit();addEventListener('resize',fit);
+/* EXTEND: change the 68 (34 on low-power devices) to add or remove floating motes */
+motes=Array.from({length:low?34:68},()=>({x:Math.random()*W,y:Math.random()*H,r:6+Math.random()*20,s:.4+Math.random()*1.2,p:Math.random()*6.28,c:Math.random()<.5?0:Math.random()<.7?1:2}));
+function bg(t,dt){fc.clearRect(0,0,W,H);fc.globalCompositeOperation='lighter';
+ for(const m of motes){m.y-=m.s*dt*.02;m.x+=Math.sin(t/1800+m.p)*.25;if(m.y<-30){m.y=H+30;m.x=Math.random()*W}
+  fc.globalAlpha=.16+.3*(.5+.5*Math.sin(t/900+m.p*3));fc.drawImage(spr[m.c],m.x-m.r,m.y-m.r,m.r*2,m.r*2)}
+ fc.globalAlpha=1;fc.globalCompositeOperation='source-over'}
+
+/* GLOW LAB: a night path lit by tiles. L holds the control values. */
+const lab=$('#lab'),lc=lab.getContext('2d'),L={color:'141,255,181',b:60,n:5,real:false};
+function rr(x,y,w,h,r){lc.beginPath();lc.moveTo(x+r,y);lc.arcTo(x+w,y,x+w,y+h,r);lc.arcTo(x+w,y+h,x,y+h,r);lc.arcTo(x,y+h,x,y,r);lc.arcTo(x,y,x+w,y,r);lc.closePath();lc.fill();lc.stroke()}
+function drawLab(t){const w=lab.width,h=lab.height,c=lc;
+ let g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,'#02060a');g.addColorStop(.5,'#051412');g.addColorStop(1,'#081a17');
+ c.globalCompositeOperation='source-over';c.fillStyle=g;c.fillRect(0,0,w,h);
+ c.fillStyle='#0d1d1b';c.beginPath();c.moveTo(w*.44,h*.36);c.lineTo(w*.56,h*.36);c.lineTo(w*.97,h);c.lineTo(w*.03,h);c.closePath();c.fill();
+ /* Reality mode scales light down; edit .12 to change how dim it looks */
+ const k=(L.real?.12:1)*L.b/100*(.93+.07*Math.sin(t/800)),spots=[];
+ for(let i=0;i<L.n;i++)for(const s of[-1,1]){const p=(i+.6)/(L.n+.2);spots.push({x:w/2+s*w*(.07+.4*p),y:h*(.4+.58*p*p),z:12+44*p})}
+ c.globalCompositeOperation='lighter';
+ for(const s of spots){const r=s.z*(3+6*k),q=c.createRadialGradient(s.x,s.y,0,s.x,s.y,r);q.addColorStop(0,`rgba(${L.color},${.6*k})`);q.addColorStop(1,`rgba(${L.color},0)`);
+  c.save();c.translate(s.x,s.y);c.scale(1,.42);c.translate(-s.x,-s.y);c.fillStyle=q;c.beginPath();c.arc(s.x,s.y,r,0,7);c.fill();c.restore()}
+ c.globalCompositeOperation='source-over';c.strokeStyle='rgba(223,243,238,.35)';
+ for(const s of spots){c.fillStyle=`rgba(${L.color},${.2+.7*k})`;rr(s.x-s.z/2,s.y-s.z*.22,s.z,s.z*.44,s.z*.12)}
+ /* fern silhouettes against the light give depth and shadow */
+ c.fillStyle='#010504';c.shadowColor='rgba(0,0,0,.9)';c.shadowBlur=14;
+ for(let i=0;i<14;i++){const d=i%2?1:-1,bx=w/2+d*w*(.44+.035*(i%4)),len=h*(.3+.05*(i%4)),sw=Math.sin(t/1400+i)*8;
+  c.beginPath();c.moveTo(bx,h+4);c.quadraticCurveTo(bx-d*len*.25+sw,h-len*.6,bx-d*len*.5+sw*1.5,h-len);c.quadraticCurveTo(bx-d*len*.04,h-len*.5,bx+d*16,h+4);c.fill()}
+ c.shadowBlur=0;
+ g=c.createRadialGradient(w/2,h*.62,h*.25,w/2,h*.62,w*.7);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.6)');c.fillStyle=g;c.fillRect(0,0,w,h)}
+function readLab(){L.color=$('#lc').value;L.b=+$('#lb').value;L.n=+$('#ln').value;L.real=$('#lr').checked;$('#o-lb').textContent=L.b;$('#o-ln').textContent=L.n;store.set('lab',{c:L.color,b:L.b,n:L.n,r:L.real});dirty=true}
+const ls=store.get('lab',{});if(ls.c)$('#lc').value=ls.c;if(ls.b)$('#lb').value=ls.b;if(ls.n)$('#ln').value=ls.n;$('#lr').checked=!!ls.r;
+['lc','lb','ln','lr'].forEach(i=>$('#'+i).addEventListener('input',readLab));readLab();
+new IntersectionObserver(e=>{labOn=e[0].isIntersecting;dirty=true},{threshold:.05}).observe(lab);
+
+/* FRAME LOOP with adaptive quality: halves the motes if the first 90 frames are slow */
+let last=0,frames=0,acc=0;
+function frame(t){requestAnimationFrame(frame);if(document.hidden)return;const dt=Math.min(60,t-last||16);last=t;
+ if(paused&&!dirty)return;dirty=false;
+ bg(paused?0:t,paused?0:dt);if(labOn)drawLab(paused?0:t);
+ if(frames<90){acc+=dt;if(++frames===90&&acc/90>26&&motes.length>20)motes.length>>=1}}
+requestAnimationFrame(frame);
+const pb=$('#pause');
+function pauseUI(){pb.textContent=paused?'Resume glow':'Pause glow';pb.setAttribute('aria-pressed',paused)}
+pb.onclick=()=>{paused=!paused;pauseUI();dirty=true};pauseUI();
+
+/* IMPACT ESTIMATOR: kWh = tiles x (lumens / LED lumens-per-watt) x hours x 365 / 1000 */
+const E=['n','lm','h','g'],fmt=(v,d=0)=>v.toLocaleString(undefined,{maximumFractionDigits:d});
+function est(){const v={};E.forEach(k=>{v[k]=+$('#'+k).value;$('#o-'+k).textContent=fmt(v[k])});store.set('est',v);
+ const LED=100,kwh=v.n*v.lm/LED*v.h*365/1000; /* EXTEND: change LED to compare other lamps */
+ $('#r1').textContent=fmt(kwh,1);$('#r2').textContent=fmt(v.n*20);$('#r3').textContent=fmt(kwh*v.g/1000,1);$('#r4').textContent=fmt(v.n*.5,1)}
+const es=store.get('est',{});E.forEach(k=>{if(es[k]!=null)$('#'+k).value=es[k];$('#'+k).addEventListener('input',est)});est();
+
+/* ROADMAP TICKS (saved locally) */
+const ck=store.get('ck',{});$$('.rd input').forEach(i=>{i.checked=!!ck[i.id];i.onchange=()=>{ck[i.id]=i.checked;store.set('ck',ck)}});
+
+/* TOC: scroll-spy highlight and reading-progress bar */
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('#toc a').forEach(a=>a.classList.toggle('on',a.hash==='#'+e.target.id))}),{rootMargin:'-30% 0px -60% 0px'});
+$$('main section[id]').forEach(s=>so.observe(s));
+const bar=$('#bar');addEventListener('scroll',()=>{const m=document.documentElement.scrollHeight-innerHeight;bar.style.width=(m>0?scrollY/m*100:0)+'%'},{passive:true});
+
+/* FINGERPRINT: SHA-256 of the page text (live outputs are skipped), computed locally */
+$('#fp').onclick=async()=>{const o=$('#fpo');try{const m=$('main').cloneNode(true);$$('[data-nofp]',m).forEach(n=>n.remove());const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(m.textContent.replace(/\s+/g,' ').trim()));o.textContent=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('')}catch(e){o.textContent='Not available in this browser (it needs a secure context).'}};
+$('#reset').onclick=()=>{store.clear();location.reload()};
+})();
+</script>
+</body>
+</html>
